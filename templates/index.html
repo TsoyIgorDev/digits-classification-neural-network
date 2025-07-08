@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Распознавание цифр</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="file"] {
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 24px;
+      color: #007bff;
+    }
+
+    .flash {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #ffe0e0;
+      color: #b00020;
+      border: 1px solid #ffb3b3;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Распознавание цифр на изображении</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="flash">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Распознать</button>
+  </form>
+
+  {% if prediction is not none %}
+    <div class="result">Предсказанная цифра: <strong>{{ prediction }}</strong></div>
+  {% endif %}
+</body>
+</html>
